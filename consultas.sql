@@ -64,8 +64,12 @@ SELECT CodigoEmpleado, CodigoJefe FROM Empleados WHERE CodigoJefe IS NULL;
 SELECT CodigoEmpleado, CodigoJefe FROM Empleados WHERE CodigoJefe IS NOT NULL;
 
 /*Sacar el Codigo de oficina y la ciudad donde hay oficina */
+SELECT CodigoOficina, Ciudad FROM Oficinas WHERE Ciudad IS NOT NULL;
+
 /*Sacar cuantos empleados hay en la compañia*/
+
+
 /*Sacar cuantos clientes tiene cada pais*/
-/*Sacar cual fue el pago medio en 2005*/
+/*Sacar cual fue el pago medio en 2009*/
 /*Sacar cuantos pedidos estan en cada estado ordenado descendentemente por el numero de pedidos*/
 /*Sacar el precio del producto mas caro y mas barato*/
