@@ -73,10 +73,23 @@ SELECT COUNT(CodigoEmpleado) FROM Empleados;
 SELECT Pais, COUNT(CodigoCliente) FROM Clientes GROUP BY Pais;
 
 /*Sacar cual fue el pago medio en 2009*/
-SELECT (SELECT AVG(Cantidad) FROM Pagos WHERE FechaPago LIKE '2009%') AS Media FROM Pagos GROUP BY FechaPago HAVING FechaPago LIKE '2009%' LIMIT 1;
+SELECT AVG(Cantidad) FROM Pagos WHERE YEAR(FechaPago)=2009;
 
 /*Sacar cuantos pedidos estan en cada estado ordenado descendentemente por el numero de pedidos*/
 SELECT Estado, COUNT(CodigoPedido) AS Pedido FROM Pedidos GROUP BY Estado ORDER BY Pedido DESC;
 
 /*Sacar el precio del producto mas caro y mas barato*/
 SELECT (SELECT MIN(PrecioVenta) FROM Productos) AS Minimo, (SELECT MAX(PrecioVenta) FROM Productos) AS Maximo FROM Productos LIMIT 1;
+
+/*Sacar el producto mas caro de cada gama*/
+SELECT Gama,MAX(PrecioVenta) FROM Productos GROUP BY Gama;
+
+/*Sacar el producto mas caro de Gama Aromaticas, pero tambien saber el codigo del producto*/
+SELECT 
+
+/*Sacar en la misma consulta el empleado y el jefe que tiene cada empleado*/
+SELECT Curritos.CodigoEmpleado, Curritos.Nombre, Curritos.Apellido1, Jefes.Nombre, Jefes.Apellido1 FROM Empleados AS Curritos, Empleados AS Jefes WHERE Curritos.CodigoJefe=Jefes.CodigoEmpleado;
+
+/*Sacar en la misma consulta el empleado juntando en misma columna Nombre y Apellido, y lo mismo con el jefe*/
+SELECT Curritos.CodigoEmpleado, CONCAT(Curritos.Nombre,' ', Curritos.Apellido1) AS NombreEmpleado, CONCAT(Jefes.Nombre,' ', Jefes.Apellido1) AS NombreJefe FROM Empleados AS Curritos, Empleados AS Jefes WHERE Curritos.CodigoJefe=Jefes.CodigoEmpleado;
+
