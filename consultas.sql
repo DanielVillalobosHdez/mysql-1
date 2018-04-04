@@ -67,9 +67,16 @@ SELECT CodigoEmpleado, CodigoJefe FROM Empleados WHERE CodigoJefe IS NOT NULL;
 SELECT CodigoOficina, Ciudad FROM Oficinas WHERE Ciudad IS NOT NULL;
 
 /*Sacar cuantos empleados hay en la compañia*/
-
+SELECT COUNT(CodigoEmpleado) FROM Empleados;
 
 /*Sacar cuantos clientes tiene cada pais*/
+SELECT Pais, COUNT(CodigoCliente) FROM Clientes GROUP BY Pais;
+
 /*Sacar cual fue el pago medio en 2009*/
+SELECT (SELECT AVG(Cantidad) FROM Pagos WHERE FechaPago LIKE '2009%') AS Media FROM Pagos GROUP BY FechaPago HAVING FechaPago LIKE '2009%' LIMIT 1;
+
 /*Sacar cuantos pedidos estan en cada estado ordenado descendentemente por el numero de pedidos*/
+SELECT Estado, COUNT(CodigoPedido) AS Pedido FROM Pedidos GROUP BY Estado ORDER BY Pedido DESC;
+
 /*Sacar el precio del producto mas caro y mas barato*/
+SELECT (SELECT MIN(PrecioVenta) FROM Productos) AS Minimo, (SELECT MAX(PrecioVenta) FROM Productos) AS Maximo FROM Productos LIMIT 1;
