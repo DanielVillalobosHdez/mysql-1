@@ -117,3 +117,4 @@ SELECT DISTINCT Clientes.CodigoEmpleadoRepVentas, Empleados.Nombre FROM Clientes
 /*Sacar todos los empleados y decir a que cliente lleva*/
 SELECT Empleados.CodigoEmpleado, Empleados.Nombre, Clientes.CodigoCliente, Clientes.NombreCliente FROM Empleados LEFT JOIN Clientes ON Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado;
 
+/*Descaragar aplicación de consultas mysql (sqlpractisepro)*/
