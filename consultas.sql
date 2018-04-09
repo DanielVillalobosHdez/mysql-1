@@ -93,3 +93,27 @@ SELECT Curritos.CodigoEmpleado, Curritos.Nombre, Curritos.Apellido1, Jefes.Nombr
 /*Sacar en la misma consulta el empleado juntando en misma columna Nombre y Apellido, y lo mismo con el jefe*/
 SELECT Curritos.CodigoEmpleado, CONCAT(Curritos.Nombre,' ', Curritos.Apellido1) AS NombreEmpleado, CONCAT(Jefes.Nombre,' ', Jefes.Apellido1) AS NombreJefe FROM Empleados AS Curritos, Empleados AS Jefes WHERE Curritos.CodigoJefe=Jefes.CodigoEmpleado;
 
+/*Sacar cuantos pedidos hay por pais*/
+SELECT Pedidos.CodigoPedido, Pedidos.CodigoCliente, Clientes.Pais FROM Pedidos, Clientes WHERE Clientes.CodigoCliente=Pedidos.CodigoCliente;
+
+/*Sacar cuantos pedidos hay de cada pais*/
+SELECT Clientes.Pais, COUNT(*) FROM Pedidos, Clientes WHERE Clientes.CodigoCliente=Pedidos.CodigoCliente GROUP BY Clientes.Pais;
+
+/*Sacar cuantos pedidos ha hecho cada cliente*/
+SELECT Pedidos.CodigoCliente, COUNT(*) FROM Pedidos GROUP BY Pedidos.CodigoCliente;
+
+/*Sacar cuanto dinero cuesta cada pedido*/
+SELECT CodigoPedido, SUM(PrecioUnidad*Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
+
+/*Sacar cuanto dinero se ha gastado cada cliente*/
+SELECT Pedidos.CodigoCliente, SUM(PrecioUnidad*Cantidad) FROM DetallePedidos, Pedidos WHERE Pedidos.CodigoPedido=DetallePedidos.CodigoPedido GROUP BY Pedidos.CodigoCliente;
+
+/*Sacar el responsable de venta de cada cliente*/
+SELECT Clientes.CodigoCliente, Clientes.NombreCliente, Empleados.CodigoEmpleado, Empleados.Nombre FROM Clientes JOIN Empleados ON Empleados.CodigoEmpleado=Clientes.CodigoEmpleadoRepVentas;
+
+/*Sacar el nombre de los empleados que llevan ventas */
+SELECT DISTINCT Clientes.CodigoEmpleadoRepVentas, Empleados.Nombre FROM Clientes JOIN Empleados ON Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado;
+
+/*Sacar todos los empleados y decir a que cliente lleva*/
+SELECT Empleados.CodigoEmpleado, Empleados.Nombre, Clientes.CodigoCliente, Clientes.NombreCliente FROM Empleados LEFT JOIN Clientes ON Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado;
+
